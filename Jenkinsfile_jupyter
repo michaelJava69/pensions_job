@@ -10,6 +10,7 @@ pipeline {
 
             environment {
                 AWS_BIN = '/usr/local/bin/aws'
+                kubectl version --kubeconfig ~/.kube/config
             }
             steps {
 
@@ -20,7 +21,10 @@ pipeline {
                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                    ]]) {
-                        sh ' kubectl create -f user_service/jupyter/jupyter-deployment.yml'
+                        sh '''
+                              kubectl version --kubeconfig ~/.kube/config
+                              kubectl create -f user_service/jupyter/jupyter-deployment.yml
+                           '''
                  }
 
                  echo 'Hello Kops'
