@@ -10,7 +10,6 @@ pipeline {
 
             environment {
                 AWS_BIN = '/usr/local/bin/aws'
-                kubectl version --kubeconfig ~/.kube/config
             }
             steps {
 
