@@ -20,7 +20,7 @@ pipeline {
                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                    ]]) {
-                        sh 'kubectl apply -f user_service/jupyter/jupyter-deployment'
+                        sh ' kubectl apply -f user_service/jupyter/jupyter-deployment.yml'
                  }
 
                  echo 'Hello Kops'
@@ -45,7 +45,7 @@ pipeline {
                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
 
-                     sh 'kubectl apply -f user_service/jupyter/jupyter-service'
+                     sh 'kubectl apply -f user_service/jupyter/jupyter-service.yml'
 
                 }
             }
