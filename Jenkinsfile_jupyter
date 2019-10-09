@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+     environment {
+         AWS_BIN = '/usr/local/bin/aws'
+     }
+
+    stages {
+
+        stage('deploy Jupyter pod') {
+
+            environment {
+                AWS_BIN = '/usr/local/bin/aws'
+            }
+            steps {
+
+
+                  withCredentials([[
+                       $class: 'AmazonWebServicesCredentialsBinding',
+                       credentialsId: 'aws-key',
+                       accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                   ]]) {
+                        sh './kops/kops.sh'
+                 }
+
+                 echo 'Hello Kops'
+
+
+
+            }
+        }
+
+        stage('Jupyter service') {
+            environment {
+                AWS_BIN = '/usr/local/bin/aws'
+            }
+            steps {
+                print('Terraform')
+
+
+                withCredentials([[
+                       $class: 'AmazonWebServicesCredentialsBinding',
+                       credentialsId: 'aws-key',
+                       accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+
+
+
+                }
+            }
+        }
+
+    }
+    post {
+
+           failure {
+                  echo 'something went wrong'
+           }
+           success {
+                  echo 'something went right'
+           }
+
+     }
+
+}

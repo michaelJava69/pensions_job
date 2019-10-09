@@ -1,0 +1,12 @@
+apiVersion: v1
+metadata:
+  name: jupyter-michael
+spec:
+  type: NodePort
+  selector:
+    app: jupyter-michael
+  ports:
+  - protocol: TCP
+    nodePort: 30040
+    port: 8888
+    targetPort: 8888

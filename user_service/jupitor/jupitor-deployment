@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyter-michael
+  labels:
+    app: jupyter-michael
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jupyter-michael
+  template:
+    metadata:
+      labels:
+        app: jupyter-michael
+    spec:
+      containers:
+      - name: minimal-notebook
+        image: jupyter/minimal-notebook:latest
+        ports:
+        - containerPort: 8888
+        command: ["start-notebook.sh"]
+        args: ["--NotebookApp.token=''"]
+
+
+
